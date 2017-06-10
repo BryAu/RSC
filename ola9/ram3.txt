@@ -1,0 +1,59 @@
+ ;Bryce Ault
+ ;ram3.txt 
+ ; RSC Emulator Example
+  
+  JMP start
+  
+  ; Variables
+
+  radius: 5
+  pi: 3			;pi will act as a counter in loop2 to simulate multiplication
+  counter: 0	;counter will eventually hold the value of radius to simulate r^2 in loop1
+  var: 1			;variable for decrementing
+  answer: 00	
+  area: 00		;to store final result
+
+
+  start:       		; the label 'start'. The jump statement earlier jumps here
+		LDAC radius 	; Load the first radius into Accumulator
+		STOAC counter	; Store the value of radius in counter into memory
+     	MOVAC				; Move contents of ACC into R
+	
+	  	JMP loop1
+
+	end:
+		LDAC area
+		OUTR	  
+
+      HALT      ; Stop execution
+
+	loop1:
+		LDAC radius		; Load radius into ACC
+		MOVAC				; Move ACC contents into R
+		LDAC answer		; Load answer into ACC
+		ADD				; Add R(radius) to ACC
+		STOAC answer	; Store contents of ACC in memory
+		LDAC var			; Load decrement variable (1)
+		MOVAC				; Move decrement variable to R
+		LDAC counter	; Load loop counter into ACC
+		SUB				; Subtract var from counter
+		STOAC counter	; Store counter in memory
+		JMPZ loop2		; Jump to loop2 when counter is 0
+		JMP loop1		
+
+	loop2:
+		LDAC answer		; Load answer into ACC (initial value is r^2)
+		MOVAC				; Move answer into R
+		LDAC area		; Load area into ACC
+		ADD				; Add answer to itself
+		STOAC area		; Store result in memory
+		LDAC var			; Load var (1) into ACC
+		MOVAC				; Move var into R
+		LDAC pi			; Load counter into ACC
+		SUB				; Subtract R(1) from ACC(pi)
+		STOAC pi			; Store pi back into memory
+		JMPZ end			; If pi is 0, jump to end
+		JMP loop2
+		
+
+

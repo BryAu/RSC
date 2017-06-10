@@ -1,0 +1,60 @@
+ ;Bryce Ault
+ ;ram2.txt 
+ ; RSC Emulator Example
+  
+  JMP start
+  
+  ; Variables
+
+  var1: 2B
+  var2: A9
+  var3: AF
+  var4: D1
+  ans1: 00
+  ans2: 00
+  ans3: 00
+  ans4: 00
+  ans5: 00
+  ans6: 00
+  ans7: 00
+
+  start:       ; the label 'start'. The jump statement earlier jumps here
+     LDAC var1 ; Load the first variable into Accumulator
+     MOVAC     ; Move the contents of Accumulator to R
+     LDAC var2 ; Load the second variable into Accumulator
+     ADD       ; Add Accumulator and R, move result into Accumulator
+     OUT       ; Send Accumulator contents to Output Register
+	  STAC ans1	; Store ACC in memory
+
+	LDAC var2	; Load the first variable into ACC
+	SUB			; Subtract R from ACC
+	OUT			; Send ACC contents to OUTR
+	STAC ans2	; Store ACC in memory
+	
+	LDAC var2	; Load the first variable into ACC
+	AND			; And R with ACC
+	OUT			; Send ACC contents to OUTR
+	STAC ans3	; Store ACC in memory
+	
+	LDAC var2	; Load the first variable into ACC
+	OR				; OR R with ACC
+	OUT			; Send ACC contents to OUTR
+	STAC ans4	; Store ACC in memory
+
+	LDAC var2	; Load the first vairable into ACC
+	ASHR			; Arithmatic Shift Right on ACC
+	OUT			; Send ACC contents to OUTR
+	STOAC ans5	; Store ACC in memory
+	CLAC
+
+	LDAC var3	; Load the third variable into ACC
+	INC			; Increment ACC
+	OUT			; Send ACC contents to OUTR
+	STOAC ans6	; Store ACC in memory
+
+	LDAC var4	; Load the fourth variable into ACC
+	NOT			; NOT the contents of ACC
+	OUT			; Send ACC contents to OUTR
+	STOAC ans7	; Store ACC in memory
+
+      HALT      ; Stop execution
